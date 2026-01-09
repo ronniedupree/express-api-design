@@ -1,12 +1,14 @@
 ﻿import { Router } from 'express'
 import { validateBody } from '../middleware/validation.ts'
 import { z } from 'zod'
+import { authenticateToken } from '../middleware/auth.ts'
 
 const createHabitScema = z.object({
     name: z.string(),
 })
 
 const router = Router()
+router.use(authenticateToken)
 
 router.get('/', (req, res) => {
     res.json({ message: 'all habits' })
